@@ -40,6 +40,7 @@
       font-weight: bold;
     }
 
+    /* Carrossel */
     .carousel {
       width: 90%;
       max-width: 600px;
@@ -59,6 +60,30 @@
       width: 100%;
       border-radius: 10px;
     }
+
+    /* Botões de navegação */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+
+    .carousel-nav button {
+      background: rgba(255, 255, 255, 0.5);
+      border: none;
+      font-size: 2em;
+      color: #ffffff;
+      padding: 10px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .carousel-nav button:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
   </style>
 </head>
 <body>
@@ -66,10 +91,22 @@
   <div class="counter" id="counter"></div>
 
   <!-- Carrossel -->
-  
+  <div class="carousel">
+    <div class="carousel-images" id="carousel-images">
+      <img src="imagem/nos1.jpeg" alt="Foto 1">
+      <img src="imagem/nos2.jpeg" alt="Foto 2">
+      <img src="imagem/nos3.jpeg" alt="Foto 3">
+    </div>
+
+    <!-- Botões de navegação -->
+    <div class="carousel-nav">
+      <button onclick="prevSlide()">&#10094;</button>
+      <button onclick="nextSlide()">&#10095;</button>
+    </div>
+  </div>
 
   <script>
-    // Script JavaScript
+    // Script JavaScript para contagem
     function updateCounter() {
       const startDate = new Date("2017-06-10T00:00:00");
       const now = new Date();
@@ -93,6 +130,7 @@
     setInterval(updateCounter, 1000);
     updateCounter();
 
+    // Script para Carrossel
     const carouselImages = document.getElementById("carousel-images");
     const totalImages = carouselImages.children.length;
     let currentIndex = 0;
@@ -104,6 +142,11 @@
 
     function nextSlide() {
       currentIndex = (currentIndex + 1) % totalImages; // Volta ao início após a última
+      updateCarousel();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + totalImages) % totalImages; // Vai para a última se estiver na primeira
       updateCarousel();
     }
 
