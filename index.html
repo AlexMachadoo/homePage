@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eternos Namorados</title>
+  <style>
+    /* Estilo CSS */
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #6e3131, #b63434, #ff0000);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    .legend {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .counter {
+      font-size: 1.5em;
+      line-height: 2;
+    }
+
+    .counter div {
+      margin: 5px 0;
+    }
+
+    .highlight {
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    .carousel {
+      width: 90%;
+      max-width: 600px;
+      margin: 20px auto;
+      overflow: hidden;
+      position: relative;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgb(253, 253, 253);
+    }
+
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-images img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="legend">Eternos Namorados<br>Alex e Jaqueline</div>
+  <div class="counter" id="counter"></div>
+
+  <!-- Carrossel -->
+  <div class="carousel">
+    <div class="carousel-images" id="carousel-images">
+      <img src="../imagem/nos1.jpeg" alt="Foto 1">
+      <img src="../imagem/nos2.jpeg" alt="Foto 2">
+      <img src="../imagem/nos3.jpeg" alt="Foto 3">
+    </div>
+  </div>
+
+  <script>
+    // Script JavaScript
+    function updateCounter() {
+      const startDate = new Date("2017-06-10T00:00:00");
+      const now = new Date();
+      const diff = Math.abs(now - startDate);
+
+      const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365.25));
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      const counterElement = document.getElementById("counter");
+      counterElement.innerHTML = `
+        <div><span class="highlight">${years}</span> Anos Juntos</div>
+        <div><span class="highlight">${days}</span> Dias</div>
+        <div><span class="highlight">${hours}</span> Horas</div>
+        <div><span class="highlight">${minutes}</span> Minutos</div>
+        <div><span class="highlight">${seconds}</span> Segundos</div>
+      `;
+    }
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    const carouselImages = document.getElementById("carousel-images");
+    const totalImages = carouselImages.children.length;
+    let currentIndex = 0;
+
+    function updateCarousel() {
+      const offset = -currentIndex * 100; // Move 100% para cada imagem
+      carouselImages.style.transform = `translateX(${offset}%)`;
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalImages; // Volta ao início após a última
+      updateCarousel();
+    }
+
+    setInterval(nextSlide, 2000);
+  </script>
+</body>
+</html>
